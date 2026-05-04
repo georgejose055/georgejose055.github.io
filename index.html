@@ -176,7 +176,7 @@ section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem;position:relative;z-i
 .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .pcard{background:var(--card);border:.5px solid var(--border);border-radius:20px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:all .3s var(--ease);cursor:default;position:relative;overflow:hidden}
 .pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(124,109,250,.5),transparent);opacity:0;transition:opacity .3s}
-.pcard::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(124,109,250,.04),transparent 70%);opacity:0;transition:opacity .4s}
+.pcard::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(124,109,250,.04),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}
 .pcard:hover{border-color:var(--border2);transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
 .pcard:hover::before,.pcard:hover::after{opacity:1}
 .pnum{font-size:11px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
@@ -493,7 +493,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
         <span class="ptag tpg">Python</span><span class="ptag tpg">Random Forest</span>
         <span class="ptag tpu">Plotly-Dash</span><span class="ptag tpu">ML</span>
       </div>
-      <a href="https://quant-ai-trading-bot.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;">Live Demo ↗</a>
+      <a href="https://quant-ai-trading-bot.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;position:relative;z-index:2;">Live Demo ↗</a>
     </div>
     <div class="pcard reveal d2">
       <div class="pnum">02 / Generative AI · Dashboard</div>
@@ -504,7 +504,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
         <span class="ptag tpu">Generative AI</span><span class="ptag tpu">Python</span>
         <span class="ptag tpt">Dashboard</span><span class="ptag tpg">Vercel</span>
       </div>
-      <a href="https://genai-dashboard-e6dm.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;">Live Demo ↗</a>
+      <a href="https://genai-dashboard-e6dm.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;position:relative;z-index:2;">Live Demo ↗</a>
     </div>
     <div class="pcard reveal d3">
       <div class="pnum">03 / AI + IoT</div>
