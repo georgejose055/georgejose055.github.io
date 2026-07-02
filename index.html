@@ -25,73 +25,87 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   display:flex;align-items:center;justify-content:center;overflow:hidden;
   transition:opacity 1.4s cubic-bezier(0.77,0,0.18,1);
 }
-#intro-overlay.fade-out {
-  opacity:0;pointer-events:none;
-}
-#intro-video {
+#intro-overlay.fade-out{opacity:0;pointer-events:none;}
+#intro-video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;z-index:0;
-  transition:opacity 1.8s ease;
 }
-#intro-video.dim {
-  opacity:0.08;
-}
-/* The black dim that sweeps in over the video at the end */
-#intro-dim {
+#intro-dim{
   position:absolute;inset:0;z-index:1;
-  background:#000;
-  opacity:0;
+  background:#000;opacity:0;
   transition:opacity 1.8s ease;
   pointer-events:none;
 }
-#intro-dim.active {
-  opacity:1;
-}
-.intro-vignette {
+#intro-dim.active{opacity:1;}
+.intro-vignette{
   position:absolute;inset:0;
-  background:radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.75) 100%);
+  background:radial-gradient(ellipse at center, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.88) 100%);
   z-index:2;pointer-events:none;
 }
-.intro-content {
+.intro-content{
   position:relative;z-index:3;text-align:center;
   opacity:0;transform:translateY(20px);
   animation:introFadeIn 1.2s 0.8s cubic-bezier(0.23,1,0.32,1) forwards;
   transition:opacity 0.6s ease, transform 0.6s ease;
+  padding:0 1rem;
 }
-.intro-content.hide-content {
-  opacity:0 !important;
-  transform:translateY(-16px) !important;
+.intro-content.hide-content{opacity:0 !important;transform:translateY(-16px) !important;}
+@keyframes introFadeIn{to{opacity:1;transform:translateY(0);}}
+
+/* Profile pic on intro */
+.intro-avatar{
+  width:90px;height:90px;border-radius:50%;
+  border:3px solid rgba(168,154,255,0.7);
+  object-fit:cover;
+  margin:0 auto 1.2rem;
+  display:block;
+  box-shadow:0 0 0 6px rgba(124,109,250,0.18), 0 8px 32px rgba(0,0,0,0.5);
 }
-@keyframes introFadeIn {
-  to{opacity:1;transform:translateY(0);}
-}
-.intro-tag {
+
+.intro-tag{
   font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--teal);font-weight:500;margin-bottom:1.2rem;
+  color:var(--teal);font-weight:600;margin-bottom:1rem;
   display:flex;align-items:center;justify-content:center;gap:8px;
+  text-shadow:0 0 20px rgba(45,212,160,0.6);
 }
 .intro-tag::before,.intro-tag::after{content:'';display:block;width:30px;height:1px;background:var(--teal);}
-.intro-name {
+.intro-name{
   font-family:'Syne',sans-serif;font-size:clamp(48px,8vw,96px);
   font-weight:800;letter-spacing:-3px;line-height:1;
-  background:linear-gradient(135deg,#fff 0%,var(--purple2) 50%,var(--teal) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  color:#ffffff;
+  text-shadow:0 2px 40px rgba(255,255,255,0.25), 0 0 80px rgba(168,154,255,0.4);
   margin-bottom:.6rem;
 }
-.intro-role {
-  font-size:clamp(14px,2vw,20px);color:rgba(255,255,255,0.55);
-  font-weight:300;letter-spacing:.1em;margin-bottom:2.5rem;
+.intro-role{
+  font-size:clamp(15px,2vw,21px);color:rgba(255,255,255,0.88);
+  font-weight:400;letter-spacing:.08em;margin-bottom:2.5rem;
+  text-shadow:0 1px 12px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6);
 }
-.intro-skip {
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);
-  border:.5px solid rgba(255,255,255,0.15);border-radius:50px;
-  padding:10px 24px;font-size:13px;color:rgba(255,255,255,0.7);
-  cursor:pointer;letter-spacing:.05em;transition:all .25s ease;
+
+/* Highlighted Enter Portfolio button */
+.intro-skip{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--purple) 0%,var(--purple3) 100%);
+  border:1.5px solid rgba(168,154,255,0.7);
+  border-radius:50px;
+  padding:14px 32px;font-size:15px;font-weight:600;color:#fff;
+  cursor:pointer;letter-spacing:.06em;transition:all .3s ease;
   font-family:'DM Sans',sans-serif;
+  box-shadow:0 0 24px rgba(124,109,250,0.6), 0 4px 20px rgba(0,0,0,0.4);
+  text-shadow:0 1px 4px rgba(0,0,0,0.3);
+  animation:pulseBtn 2.5s ease-in-out infinite;
 }
-.intro-skip:hover {background:rgba(255,255,255,0.14);color:#fff;transform:translateY(-2px);}
-.intro-progress {
+@keyframes pulseBtn{
+  0%,100%{box-shadow:0 0 24px rgba(124,109,250,0.6),0 4px 20px rgba(0,0,0,0.4);}
+  50%{box-shadow:0 0 40px rgba(124,109,250,0.9),0 0 60px rgba(168,154,255,0.4),0 4px 20px rgba(0,0,0,0.4);}
+}
+.intro-skip:hover{
+  background:linear-gradient(135deg,var(--purple2) 0%,var(--purple) 100%);
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 0 50px rgba(168,154,255,0.8),0 8px 32px rgba(0,0,0,0.5);
+}
+
+.intro-progress{
   position:absolute;bottom:0;left:0;height:2px;
   background:linear-gradient(90deg,var(--purple),var(--teal));
   width:0%;transition:width linear;z-index:4;
@@ -148,6 +162,7 @@ nav.scrolled{padding:.85rem 2.5rem;box-shadow:0 4px 30px rgba(0,0,0,.5)}
 .toast-x{margin-left:auto;cursor:pointer;background:none;border:none;color:inherit;font-size:16px;opacity:.6;line-height:1}
 .toast-x:hover{opacity:1}
 
+/* ===================== HERO ===================== */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 420px;align-items:center;gap:4rem;padding:8rem 2.5rem 4rem;max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:1.5rem;animation:fadeUp .8s .1s both}
 .hero-tag::before{content:'';display:block;width:24px;height:1px;background:var(--teal)}
@@ -231,18 +246,12 @@ section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem;position:relative;z-i
 .pnum{font-size:11px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
 .pico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .3s}
 .pcard:hover .pico{transform:scale(1.1) rotate(5deg)}
-.pico.pu{background:rgba(124,109,250,.12)}
-.pico.pt{background:rgba(45,212,160,.1)}
-.pico.pc{background:rgba(255,107,107,.1)}
-.pico.pg{background:rgba(255,200,70,.1)}
+.pico.pu{background:rgba(124,109,250,.12)}.pico.pt{background:rgba(45,212,160,.1)}.pico.pc{background:rgba(255,107,107,.1)}.pico.pg{background:rgba(255,200,70,.1)}
 .pname{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;line-height:1.35}
 .pdesc{font-size:13px;color:var(--text2);line-height:1.7;flex:1}
 .ptags{display:flex;flex-wrap:wrap;gap:6px}
 .ptag{font-size:11px;padding:3px 10px;border-radius:5px;font-weight:500;letter-spacing:.03em}
-.tpu{background:rgba(124,109,250,.12);color:var(--purple2)}
-.tpt{background:rgba(45,212,160,.1);color:#2dd4a0}
-.tpc{background:rgba(255,107,107,.1);color:#ff8080}
-.tpg{background:rgba(255,200,70,.1);color:#ffc846}
+.tpu{background:rgba(124,109,250,.12);color:var(--purple2)}.tpt{background:rgba(45,212,160,.1);color:#2dd4a0}.tpc{background:rgba(255,107,107,.1);color:#ff8080}.tpg{background:rgba(255,200,70,.1);color:#ffc846}
 .egrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:2rem}
 .ecard{background:var(--card);border:.5px solid var(--border);border-radius:16px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all .25s var(--ease)}
 .ecard:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
@@ -253,9 +262,7 @@ section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem;position:relative;z-i
 .cgrid{display:flex;gap:12px}
 .ccard{flex:1;background:var(--card);border:.5px solid var(--border);border-radius:14px;padding:1.25rem;transition:all .25s var(--ease)}
 .ccard:hover{border-color:var(--border2);transform:translateY(-2px)}
-.cname{font-size:14px;font-weight:500;margin-bottom:3px}
-.cby{font-size:12px;color:var(--text3)}
-.cdt{font-size:11px;color:var(--purple2);font-weight:500;margin-top:8px}
+.cname{font-size:14px;font-weight:500;margin-bottom:3px}.cby{font-size:12px;color:var(--text3)}.cdt{font-size:11px;color:var(--purple2);font-weight:500;margin-top:8px}
 .cinner{background:var(--card);border:.5px solid var(--border);border-radius:24px;padding:3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;position:relative;overflow:hidden}
 .cinner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(124,109,250,.06),transparent 60%);pointer-events:none}
 .chead{font-family:'Syne',sans-serif;font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:1rem}
@@ -287,8 +294,7 @@ section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem;position:relative;z-i
 .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin .7s linear infinite;display:none;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
-.fcopy{font-size:13px;color:var(--text3)}
-.fcopy span{color:var(--purple2)}
+.fcopy{font-size:13px;color:var(--text3)}.fcopy span{color:var(--purple2)}
 .flinks{display:flex;gap:1.5rem}
 .flinks a{font-size:12px;color:var(--text3);text-decoration:none;transition:color .2s}
 .flinks a:hover{color:var(--purple2)}
@@ -319,25 +325,22 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
 
 <!-- ===================== INTRO SPLASH ===================== -->
 <div id="intro-overlay">
-  <!-- Video plays ONCE (no loop) -->
   <video id="intro-video" autoplay muted playsinline>
     <source src="intro.mp4" type="video/mp4">
   </video>
-  <!-- Dark dim layer that fades in when video ends -->
   <div id="intro-dim"></div>
   <div class="intro-vignette"></div>
   <div class="intro-content" id="intro-content">
+    <img src="profile.jpg" alt="George Jose" class="intro-avatar" onerror="this.style.display='none'">
     <div class="intro-tag">Portfolio</div>
     <div class="intro-name">George Jose</div>
-    <div class="intro-role">Data Scientist · AI Engineer · Full-Stack Developer</div>
-    <button class="intro-skip" onclick="dismissIntro()">Enter Portfolio ↗</button>
+    <div class="intro-role">Data Scientist &middot; AI Engineer &middot; Full-Stack Developer</div>
+    <button class="intro-skip" onclick="skipIntro()">Enter Portfolio ↗</button>
   </div>
   <div class="intro-progress" id="intro-progress"></div>
 </div>
 
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
 <div id="toast-wrap"></div>
 <button id="btt" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
@@ -363,6 +366,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   <a href="https://drive.google.com/file/d/1dS0hQ0w_vrvZnwgkZRf4i5g832uIe1q0/view?usp=sharing" target="_blank" class="nav-cta" onclick="closeNav()">Resume ↗</a>
 </div>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
   <div>
     <div class="hero-tag">Open to AI · ML · Analytics · Visualization roles</div>
@@ -460,8 +464,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   <div class="slabel reveal">Professional Journey</div>
   <h2 class="stitle reveal">Work <span>Experience</span></h2>
   <div class="timeline">
-    <div class="t-item reveal d1">
-      <div class="tdot"></div>
+    <div class="t-item reveal d1"><div class="tdot"></div>
       <div class="tcard">
         <div class="ttop"><div class="ttitle">Vision Based Intern</div><div class="tdate">Apr 2025 – Sep 2025</div></div>
         <div class="tco">CHRIST (Deemed to be University), Bengaluru</div>
@@ -474,8 +477,7 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
         </ul>
       </div>
     </div>
-    <div class="t-item reveal d2">
-      <div class="tdot" style="background:var(--teal);box-shadow:0 0 0 3px rgba(45,212,160,.2)"></div>
+    <div class="t-item reveal d2"><div class="tdot" style="background:var(--teal);box-shadow:0 0 0 3px rgba(45,212,160,.2)"></div>
       <div class="tcard">
         <div class="ttop"><div class="ttitle">IT Intern</div><div class="tdate">Aug 2023 – Oct 2023</div></div>
         <div class="tco" style="color:var(--teal)">Bayer Crop Science, Vapi, India</div>
@@ -496,38 +498,11 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   <div class="slabel reveal">My Work</div>
   <h2 class="stitle reveal">Featured <span>Projects</span></h2>
   <div class="pgrid">
-    <div class="pcard reveal d1">
-      <div class="pnum">01 / Data Science · Finance</div><div class="pico pg">📈</div>
-      <div class="pname">Quant-AI Trading Bot</div>
-      <div class="pdesc">Real-time stock prediction using Random Forest models and interactive Plotly-Dash charts. Analyzed companies like CSCO, NVDA, and SMCI with a deployed web app for visualization, signals, and smart trading recommendations.</div>
-      <div class="ptags"><span class="ptag tpg">Python</span><span class="ptag tpg">Random Forest</span><span class="ptag tpu">Plotly-Dash</span><span class="ptag tpu">ML</span></div>
-      <a href="https://quant-ai-trading-bot.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;position:relative;z-index:2;">Live Demo ↗</a>
-    </div>
-    <div class="pcard reveal d2">
-      <div class="pnum">02 / Generative AI · Dashboard</div><div class="pico pu">🧠</div>
-      <div class="pname">Gen AI Dashboard</div>
-      <div class="pdesc">A Generative AI-powered analytics dashboard deployed on Vercel. Enables users to interact with AI models, visualize outputs, and explore generative capabilities through an intuitive, modern interface built with cutting-edge AI tools.</div>
-      <div class="ptags"><span class="ptag tpu">Generative AI</span><span class="ptag tpu">Python</span><span class="ptag tpt">Dashboard</span><span class="ptag tpg">Vercel</span></div>
-      <a href="https://genai-dashboard-e6dm.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;position:relative;z-index:2;">Live Demo ↗</a>
-    </div>
-    <div class="pcard reveal d3">
-      <div class="pnum">03 / AI + IoT</div><div class="pico pt">🌿</div>
-      <div class="pname">Intelligent Waste Classification</div>
-      <div class="pdesc">Smart waste classification using deep learning and camera sensors to identify wet, dry, or plastic waste. An automated smart bin opens the correct compartment for efficient, sustainable disposal using Computer Vision.</div>
-      <div class="ptags"><span class="ptag tpt">Deep Learning</span><span class="ptag tpt">Computer Vision</span><span class="ptag tpt">IoT</span><span class="ptag tpt">Python</span></div>
-    </div>
-    <div class="pcard reveal d4">
-      <div class="pnum">04 / NLP · RAG</div><div class="pico pu">🤖</div>
-      <div class="pname">Geo 3D Chatbot</div>
-      <div class="pdesc">Worked with structured and unstructured data sources — documents and web data — to support data retrieval, filtering, and insight generation. RAG architecture enables decision support with clear output for both technical and business users.</div>
-      <div class="ptags"><span class="ptag tpu">NLP</span><span class="ptag tpu">RAG</span><span class="ptag tpt">LangChain</span><span class="ptag tpu">Python</span></div>
-    </div>
-    <div class="pcard reveal d5">
-      <div class="pnum">05 / Machine Learning</div><div class="pico pc">🌸</div>
-      <div class="pname">Iris Classification</div>
-      <div class="pdesc">End-to-end data wrangling, visualization, and statistical analysis on the Iris dataset. Built a logistic regression model evaluated with confusion matrix and accuracy metrics, demonstrating feature analysis and model interpretation.</div>
-      <div class="ptags"><span class="ptag tpc">scikit-learn</span><span class="ptag tpc">EDA</span><span class="ptag tpc">Logistic Regression</span><span class="ptag tpc">Python</span></div>
-    </div>
+    <div class="pcard reveal d1"><div class="pnum">01 / Data Science · Finance</div><div class="pico pg">📈</div><div class="pname">Quant-AI Trading Bot</div><div class="pdesc">Real-time stock prediction using Random Forest models and interactive Plotly-Dash charts. Analyzed companies like CSCO, NVDA, and SMCI with a deployed web app for visualization, signals, and smart trading recommendations.</div><div class="ptags"><span class="ptag tpg">Python</span><span class="ptag tpg">Random Forest</span><span class="ptag tpu">Plotly-Dash</span><span class="ptag tpu">ML</span></div><a href="https://quant-ai-trading-bot.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;position:relative;z-index:2;">Live Demo ↗</a></div>
+    <div class="pcard reveal d2"><div class="pnum">02 / Generative AI · Dashboard</div><div class="pico pu">🧠</div><div class="pname">Gen AI Dashboard</div><div class="pdesc">A Generative AI-powered analytics dashboard deployed on Vercel. Enables users to interact with AI models, visualize outputs, and explore generative capabilities through an intuitive, modern interface built with cutting-edge AI tools.</div><div class="ptags"><span class="ptag tpu">Generative AI</span><span class="ptag tpu">Python</span><span class="ptag tpt">Dashboard</span><span class="ptag tpg">Vercel</span></div><a href="https://genai-dashboard-e6dm.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="margin-top:auto;width:fit-content;font-size:13px;padding:9px 20px;position:relative;z-index:2;">Live Demo ↗</a></div>
+    <div class="pcard reveal d3"><div class="pnum">03 / AI + IoT</div><div class="pico pt">🌿</div><div class="pname">Intelligent Waste Classification</div><div class="pdesc">Smart waste classification using deep learning and camera sensors to identify wet, dry, or plastic waste. An automated smart bin opens the correct compartment for efficient, sustainable disposal using Computer Vision.</div><div class="ptags"><span class="ptag tpt">Deep Learning</span><span class="ptag tpt">Computer Vision</span><span class="ptag tpt">IoT</span><span class="ptag tpt">Python</span></div></div>
+    <div class="pcard reveal d4"><div class="pnum">04 / NLP · RAG</div><div class="pico pu">🤖</div><div class="pname">Geo 3D Chatbot</div><div class="pdesc">Worked with structured and unstructured data sources — documents and web data — to support data retrieval, filtering, and insight generation. RAG architecture enables decision support with clear output for both technical and business users.</div><div class="ptags"><span class="ptag tpu">NLP</span><span class="ptag tpu">RAG</span><span class="ptag tpt">LangChain</span><span class="ptag tpu">Python</span></div></div>
+    <div class="pcard reveal d5"><div class="pnum">05 / Machine Learning</div><div class="pico pc">🌸</div><div class="pname">Iris Classification</div><div class="pdesc">End-to-end data wrangling, visualization, and statistical analysis on the Iris dataset. Built a logistic regression model evaluated with confusion matrix and accuracy metrics, demonstrating feature analysis and model interpretation.</div><div class="ptags"><span class="ptag tpc">scikit-learn</span><span class="ptag tpc">EDA</span><span class="ptag tpc">Logistic Regression</span><span class="ptag tpc">Python</span></div></div>
   </div>
 </section>
 
@@ -604,54 +579,74 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   var content  = document.getElementById('intro-content');
   var progress = document.getElementById('intro-progress');
   var dismissed = false;
+  var reversing = false;
 
   document.body.style.overflow = 'hidden';
 
-  /* Step 1 — video ends → fade content out + dim bg to black */
-  function onVideoEnd() {
-    if (dismissed) return;
-    // Hide the text/button
-    content.classList.add('hide-content');
-    // Fade the dim layer to full black over 1.8s
-    dimEl.classList.add('active');
-    // After dim completes, dismiss the whole overlay
-    setTimeout(function(){ dismissIntro(); }, 2000);
+  /* ---- Reverse playback using requestAnimationFrame ---- */
+  function playReverse() {
+    reversing = true;
+    var REVERSE_DURATION = 2200; // ms to play in reverse
+    var startTime = null;
+    var startPos = video.currentTime;
+    var targetPos = Math.max(0, startPos - (startPos * 0.85)); // rewind ~85% back
+    var delta = startPos - targetPos;
+
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / REVERSE_DURATION, 1);
+      video.currentTime = startPos - delta * progress;
+      if (progress < 1 && !dismissed) {
+        requestAnimationFrame(step);
+      } else {
+        finishExit();
+      }
+    }
+    video.pause();
+    requestAnimationFrame(step);
   }
 
-  /* Step 2 — fade out the overlay itself */
-  function dismissIntro() {
+  function finishExit() {
+    content.classList.add('hide-content');
+    dimEl.classList.add('active');
+    setTimeout(function(){ doFadeOut(); }, 1900);
+  }
+
+  function doFadeOut() {
     if (dismissed) return;
     dismissed = true;
     overlay.classList.add('fade-out');
     document.body.style.overflow = '';
     setTimeout(function(){ overlay.style.display = 'none'; }, 1500);
   }
-  window.dismissIntro = dismissIntro;
 
-  /* Listen for video end */
-  video.addEventListener('ended', onVideoEnd);
+  /* Video ends → play in reverse then dim → exit */
+  video.addEventListener('ended', function(){
+    if (dismissed || reversing) return;
+    playReverse();
+  });
 
-  /* Fallback: if video never loads/plays, auto-dismiss after 10s */
+  /* Skip button */
+  window.skipIntro = function(){
+    if (dismissed || reversing) return;
+    clearTimeout(fallback);
+    playReverse();
+  };
+
+  /* Fallback auto-trigger after 12s if video never fires */
   var fallback = setTimeout(function(){
-    if (!dismissed) onVideoEnd();
-  }, 10000);
+    if (!dismissed && !reversing) playReverse();
+  }, 12000);
 
   /* Progress bar synced to video duration */
   video.addEventListener('loadedmetadata', function(){
-    var dur = video.duration * 1000;
-    progress.style.transition = 'width ' + (dur / 1000).toFixed(1) + 's linear';
+    var dur = video.duration;
+    if (!dur) return;
+    progress.style.transition = 'width ' + dur.toFixed(1) + 's linear';
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){ progress.style.width = '100%'; });
     });
   });
-
-  /* Skip button clears fallback too */
-  window.dismissIntro = function(){
-    clearTimeout(fallback);
-    content.classList.add('hide-content');
-    dimEl.classList.add('active');
-    setTimeout(dismissIntro, 600);
-  };
 })();
 
 /* ---- TYPEWRITER ---- */
