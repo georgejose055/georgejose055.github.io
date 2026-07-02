@@ -550,11 +550,11 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   </div>
   <div class="cfwrap reveal">
     <div class="fgrid">
-      <div class="fg"><label class="flbl" for="fn">Your Name *</label><input class="finp" type="text" id="fn" name="name" placeholder="John Doe" required></div>
-      <div class="fg"><label class="flbl" for="fe">Your Email *</label><input class="finp" type="email" id="fe" name="email" placeholder="john@example.com" required></div>
-      <div class="fg"><label class="flbl" for="fs">Subject</label><input class="finp" type="text" id="fs" name="subject" placeholder="Job opportunity / Collaboration / Query"></div>
-      <div class="fg"><label class="flbl" for="fp">Phone (optional)</label><input class="finp" type="tel" id="fp" name="phone" placeholder="+91 98765 43210"></div>
-      <div class="fg full"><label class="flbl" for="fm">Message *</label><textarea class="ftxt" id="fm" name="message" placeholder="Hi George, I'd love to connect about…" required></textarea></div>
+      <div class="fg"><label class="flbl" for="fn">Your Name *</label><input class="finp" type="text" id="fn" name="name" placeholder="Name" required></div>
+      <div class="fg"><label class="flbl" for="fe">Your Email *</label><input class="finp" type="email" id="fe" name="email" placeholder="Email" required></div>
+      <div class="fg"><label class="flbl" for="fs">Subject</label><input class="finp" type="text" id="fs" name="subject" placeholder="Subject"></div>
+      <div class="fg"><label class="flbl" for="fp">Phone (optional)</label><input class="finp" type="tel" id="fp" name="phone" placeholder="Phone"></div>
+      <div class="fg full"><label class="flbl" for="fm">Message *</label><textarea class="ftxt" id="fm" name="message" placeholder="Your message…" required></textarea></div>
     </div>
     <button class="fsub" id="fsbtn" type="button" onclick="sendMail()"><span id="fbtn-txt">Send Message ✉</span><div class="spinner" id="fspinner"></div></button>
     <p class="fnote">* Your message will be sent directly — no email client needed. I'll reply within 24 hours.</p>
@@ -583,13 +583,12 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
 
   document.body.style.overflow = 'hidden';
 
-  /* ---- Reverse playback using requestAnimationFrame ---- */
   function playReverse() {
     reversing = true;
-    var REVERSE_DURATION = 2200; // ms to play in reverse
+    var REVERSE_DURATION = 2200;
     var startTime = null;
     var startPos = video.currentTime;
-    var targetPos = Math.max(0, startPos - (startPos * 0.85)); // rewind ~85% back
+    var targetPos = Math.max(0, startPos - (startPos * 0.85));
     var delta = startPos - targetPos;
 
     function step(ts) {
@@ -620,25 +619,21 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
     setTimeout(function(){ overlay.style.display = 'none'; }, 1500);
   }
 
-  /* Video ends → play in reverse then dim → exit */
   video.addEventListener('ended', function(){
     if (dismissed || reversing) return;
     playReverse();
   });
 
-  /* Skip button */
   window.skipIntro = function(){
     if (dismissed || reversing) return;
     clearTimeout(fallback);
     playReverse();
   };
 
-  /* Fallback auto-trigger after 12s if video never fires */
   var fallback = setTimeout(function(){
     if (!dismissed && !reversing) playReverse();
   }, 12000);
 
-  /* Progress bar synced to video duration */
   video.addEventListener('loadedmetadata', function(){
     var dur = video.duration;
     if (!dur) return;
