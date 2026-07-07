@@ -111,6 +111,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   width:0%;transition:width linear;z-index:4;
 }
 
+/* ===================== BACKGROUND VIDEO ===================== */
+#bg-video-wrap{
+  position:fixed;inset:0;z-index:-2;overflow:hidden;
+  background:var(--bg);
+}
+#bg-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:0;
+  transition:opacity 2s ease;
+}
+#bg-video.show{opacity:0.35;}
+#bg-video-overlay{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg, rgba(10,10,15,0.75) 0%, rgba(10,10,15,0.9) 100%);
+}
+
 /* NOISE */
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
 .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
@@ -339,6 +355,14 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   </div>
   <div class="intro-progress" id="intro-progress"></div>
 </div>
+
+<!-- ===================== BACKGROUND VIDEO (plays after intro) ===================== -->
+<div id="bg-video-wrap">
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+</div>
+<div id="bg-video-overlay"></div>
 
 <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
 <div id="toast-wrap"></div>
@@ -578,10 +602,16 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
   var dimEl    = document.getElementById('intro-dim');
   var content  = document.getElementById('intro-content');
   var progress = document.getElementById('intro-progress');
+  var bgVideo  = document.getElementById('bg-video');
   var dismissed = false;
   var reversing = false;
 
   document.body.style.overflow = 'hidden';
+
+  // Get the background video ready early so it can fade in smoothly the moment the intro ends.
+  if (bgVideo) {
+    bgVideo.play().catch(function(){ /* will retry on user interaction if autoplay is blocked */ });
+  }
 
   function playReverse() {
     reversing = true;
@@ -616,6 +646,11 @@ footer{border-top:.5px solid var(--border);padding:2rem 2.5rem;display:flex;just
     dismissed = true;
     overlay.classList.add('fade-out');
     document.body.style.overflow = '';
+    // Reveal the portfolio background video as the intro fades away.
+    if (bgVideo) {
+      bgVideo.play().catch(function(){});
+      bgVideo.classList.add('show');
+    }
     setTimeout(function(){ overlay.style.display = 'none'; }, 1500);
   }
 
